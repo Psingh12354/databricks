@@ -18,4 +18,4 @@ Trade-offs:
 Job clusters prioritize your specific job but come with higher resource costs.
 
 
-!(image)[<img width="531" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/e1379ff9-2c76-400a-b529-d62000d29e5d">]
+![image](<img width="531" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/e1379ff9-2c76-400a-b529-d62000d29e5d">)
