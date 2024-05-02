@@ -1,5 +1,7 @@
 # databricks
 
+Based on Apache Spark
+
 ### Cluster
 
 - All-purpose clusters, such as ad hoc analysis, data exploration, and development, are designed for collaborative use. Multiple users can share them.
@@ -19,4 +21,4 @@ Job clusters prioritize your specific job but come with higher resource costs.
 
 <img width="531" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/cd21c411-5fdc-4399-8c6b-b111b2120964">
 
-
+- Lakehouse contain positive aspect of Data Lake & Data Warehouse.
