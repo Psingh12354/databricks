@@ -22,3 +22,7 @@ Job clusters prioritize your specific job but come with higher resource costs.
 <img width="531" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/cd21c411-5fdc-4399-8c6b-b111b2120964">
 
 - Lakehouse contain positive aspect of Data Lake & Data Warehouse.
+- ```dbutils.help()``` this module help in getting list of module to interact with databricks.
+- ```dbutils.fs.help()``` this module provide utilitties which interact with file system. ___eg :___ dbutils.fs.ls('path')
+- To revise or move back to last change or any previous changes you can click on below **last edit....**
+<img width="649" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/952d2198-8a0f-4fbf-8148-c022ae6114cf">
