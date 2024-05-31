@@ -40,6 +40,27 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - In summary, Gold tables contain valuable, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.
 - Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
 - To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
+- ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
+### Time Travel
+- ```DESCRIBE HISTORY employees``` to get history of given table including version details.
+
+<img width="387" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/556df0d5-16f0-4c99-8451-a0ac7f8929a3">
+<img width="365" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/a0b59c7b-0af7-41e8-9c36-2f237dd6739a">
+<img width="224" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/b9d469a0-c156-4c2c-8630-f65e442fa4ee">
+- Garbage collection
+<img width="410" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/380852bc-a8a8-42d4-8634-a7e86e88216f">
+
+
+
+  
+- QUARINTINE tABLE
+- Optimize(Incredibly small data)
+- Data in Delta table stored in Parquet table
+- Pivot use to convert table from long format to wide format
+- View can be accessed by different session but temp view can't.
+- ```filter(expr, func)```Here filter tooks 2 param one is array as expression and 2nd is func example code ```SELECT filter(array(1, 2, 3), x -> x % 2 == 1);```
+- ```dbfs:/user?hive/warehouse```  where database stored.
+- JSON data is text based format
 ### Trigger
 - ```.trigger(once=True)``` is supposed to process only one patch of data.
 - ```.trigger(availableNow=True)``` setting is used for incremental batch processing in Structured Streaming it help in processing data immediately.
