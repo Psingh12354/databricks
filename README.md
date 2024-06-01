@@ -60,6 +60,7 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - View can be accessed by different session but temp view can't.
 - ```filter(expr, func)```Here filter tooks 2 param one is array as expression and 2nd is func example code ```SELECT filter(array(1, 2, 3), x -> x % 2 == 1);```
 - ```dbfs:/user?hive/warehouse```  where database stored.
+
 - JSON data is text based format
 ### Trigger
 - ```.trigger(once=True)``` is supposed to process only one patch of data.
