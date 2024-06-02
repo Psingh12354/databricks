@@ -37,12 +37,6 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - To create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records, you should use the UNION operator, as shown in option B. This operator combines the result sets of the two tables while automatically removing duplicate records.
 - The reason why the data files still exist while the metadata files were deleted is because the table was external. When a table is external in Spark SQL (or in other database systems), it means that the table metadata (such as schema information and table structure) is managed externally, and Spark SQL assumes that the data is managed and maintained outside of the system. Therefore, when you execute a DROP TABLE statement for an external table, it removes only the table metadata from the catalog, leaving the data files intact. On the other hand, for managed tables (option E), Spark SQL manages both the metadata and the data files. When you drop a managed table, it deletes both the metadata and the associated data files, resulting in a complete removal of the table.
 - A table in a database allows you to store structured data persistently. It provides a physical representation of data, and other users can query, modify, and analyze it. Unlike temporary views, tables are durable and can be accessed across sessions and users. By creating a table, the data engineer ensures that the data is stored and can be efficiently utilized by others
-- In summary, Gold tables contain valuable, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.
-- Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
-- To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
-- ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
-### Time Travel
-- ```DESCRIBE HISTORY employees``` to get history of given table including version details.
 - To make a copy of delta table we have two options : Deep Clone & Shadow Clone.
 - Deep Clone copies full data + metadata from source to target. ```Create table table_name deep clone source_table```
 - Shallow Clone create copy of table by just coping Delta connection logs. ```Create table table_name shallow clone source_table```
@@ -50,6 +44,13 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - ```Create view view_name as query``` it's a common view.
 - Temporary view work base on sparksession when it calls it started and when session closed view closed. ```Create temp view view_name as query```
 - Global temporary view is based on cluster. ```Create global temp view view_name as query```
+- In summary, Gold tables contain valuable, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.
+- Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
+- To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
+- ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
+### Time Travel
+- ```DESCRIBE HISTORY employees``` to get history of given table including version details.
+
 <img width="387" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/556df0d5-16f0-4c99-8451-a0ac7f8929a3">
 <img width="365" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/a0b59c7b-0af7-41e8-9c36-2f237dd6739a">
 <img width="224" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/b9d469a0-c156-4c2c-8630-f65e442fa4ee">
