@@ -43,7 +43,13 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
 ### Time Travel
 - ```DESCRIBE HISTORY employees``` to get history of given table including version details.
-
+- To make a copy of delta table we have two options : Deep Clone & Shadow Clone.
+- Deep Clone copies full data + metadata from source to target. ```Create table table_name deep clone source_table```
+- Shallow Clone create copy of table by just coping Delta connection logs. ```Create table table_name shallow clone source_table```
+- View is the virtual table which doesn't have any existence. In databricks it's classiedmfied in 3 types.
+- ```Create view view_name as query``` it's a common view.
+- Temporary view work base on sparksession when it calls it started and when session closed view closed. ```Create temp view view_name as query```
+- Global temporary view is based on cluster. ```Create global temp view view_name as query```
 <img width="387" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/556df0d5-16f0-4c99-8451-a0ac7f8929a3">
 <img width="365" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/a0b59c7b-0af7-41e8-9c36-2f237dd6739a">
 <img width="224" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/b9d469a0-c156-4c2c-8630-f65e442fa4ee">
