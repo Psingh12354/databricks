@@ -1,4 +1,4 @@
-# databricks
+tl# databricks
 
 Based on Apache Spark
 
@@ -36,7 +36,8 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - A data engineer needs to create a table in Databricks using data from their organization’s existing SQLite database ```org.apache.spark.sql.jdbc```
 - To create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records, you should use the UNION operator, as shown in option B. This operator combines the result sets of the two tables while automatically removing duplicate records.
 - The reason why the data files still exist while the metadata files were deleted is because the table was external. When a table is external in Spark SQL (or in other database systems), it means that the table metadata (such as schema information and table structure) is managed externally, and Spark SQL assumes that the data is managed and maintained outside of the system. Therefore, when you execute a DROP TABLE statement for an external table, it removes only the table metadata from the catalog, leaving the data files intact. On the other hand, for managed tables (option E), Spark SQL manages both the metadata and the data files. When you drop a managed table, it deletes both the metadata and the associated data files, resulting in a complete removal of the table.
-- A table in a database allows you to store structured data persistently. It provides a physical representation of data, and other users can query, modify, and analyze it. Unlike temporary views, tables are durable and can be accessed across sessions and users. By creating a table, the data engineer ensures that the data is stored and can be efficiently utilized by others
+- A table in a database allows you to store structured data persistently. It provides a physical representation of data, and other users can query, modify, and analyze it. Unlike temporary views, tables are durable and can be accessed across sessions and users. By creating a table, the data engineer ensures that the data is stored and can be efficiently utilized by others.
+- To query a table u can use ```Select * from file_format.`path.type` ```. In this we can pass whole path or just give the folder location and run all the files together, or just give ```path/*.type```
 - To make a copy of delta table we have two options : Deep Clone & Shadow Clone.
 - Deep Clone copies full data + metadata from source to target. ```Create table table_name deep clone source_table```
 - Shallow Clone create copy of table by just coping Delta connection logs. ```Create table table_name shallow clone source_table```
