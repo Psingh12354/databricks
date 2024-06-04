@@ -1,4 +1,4 @@
-tl# databricks
+# databricks
 
 Based on Apache Spark
 
@@ -33,6 +33,8 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - To write data into a Delta table while avoiding the writing of duplicate records, you can use the ```MERGE``` command
 - To define UDF in sql use below like query ```CREATE FUNCTION blue() RETURNS STRING COMMENT 'Blue color code' LANGUAGE SQL RETURN '0000FF';```
 - The COPY INTO statement is generally used to copy data from files or a location into a table. If the data engineer runs this statement daily to copy the previous day’s sales into the "transactions" table and the number of records hasn't changed after today's execution, it's possible that the data from today's file might not have differed from the data already present in the table.
+- spark.readStream is a method in Apache Spark used for reading streaming data. It returns a DataStreamReader that can be used to read data streams as a streaming DataFrame. This is particularly useful for incremental data processing (streaming) - when you read input data, Spark determines what new data were added since the last read operation and processes only them
+- To schedule a job to run once per day you need to use Quartz Cron. Cron syntax specifies a time in the format <seconds> <minutes> <hours> <day-of-month> <month> <day-of-week>. Numbers are used for the values and special characters can be used for multiple values.
 - A data engineer needs to create a table in Databricks using data from their organization’s existing SQLite database ```org.apache.spark.sql.jdbc```
 - To create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records, you should use the UNION operator, as shown in option B. This operator combines the result sets of the two tables while automatically removing duplicate records.
 - The reason why the data files still exist while the metadata files were deleted is because the table was external. When a table is external in Spark SQL (or in other database systems), it means that the table metadata (such as schema information and table structure) is managed externally, and Spark SQL assumes that the data is managed and maintained outside of the system. Therefore, when you execute a DROP TABLE statement for an external table, it removes only the table metadata from the catalog, leaving the data files intact. On the other hand, for managed tables (option E), Spark SQL manages both the metadata and the data files. When you drop a managed table, it deletes both the metadata and the associated data files, resulting in a complete removal of the table.
