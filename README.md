@@ -51,6 +51,7 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
 ### Time Travel
 - ```DESCRIBE HISTORY employees``` to get history of given table including version details.
+- If supposed one column have nested data like json, we can use databricks inbuilt approach to traverse it ```select customer_id,profile:name from customer``` Here profile is Column inside we have json key as name.
 
 <img width="387" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/556df0d5-16f0-4c99-8451-a0ac7f8929a3">
 <img width="365" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/a0b59c7b-0af7-41e8-9c36-2f237dd6739a">
