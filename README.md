@@ -48,6 +48,8 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - Temporary view work base on sparksession when it calls it started and when session closed view closed. ```Create temp view view_name as query```
 - Global temporary view is based on cluster. ```Create global temp view view_name as query```
 - In summary, Gold tables contain valuable, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.
+<img width="692" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/168f3c24-4555-4c99-98c9-498c5c0aec20">
+
 - Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
 - To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
 - ```DESCRIBE DETAILS tablename``` to get all the details about the given table.
