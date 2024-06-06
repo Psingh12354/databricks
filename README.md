@@ -79,6 +79,15 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - ```.trigger(once=True)``` is supposed to process only one patch of data.
 - ```.trigger(availableNow=True)``` setting is used for incremental batch processing in Structured Streaming it help in processing data immediately.
 - To have an up and running job with a 1-hour processing interval; ```.trigger(processingTime='60 minutes')```
+  
+| Aspect                | Triggered Execution      | Continuous Execution    | Development         | Production          |
+|-----------------------|--------------------------|-------------------------|---------------------|---------------------|
+| Execution Trigger     | Event-driven             | Continuous data arrival | N/A                 | N/A                 |
+| Processing Characteristics | Batch or near-real-time | Real-time processing    | Iterative development & testing | Stable, optimized execution |
+| Environment           | N/A                      | N/A                     | Interactive notebooks or development environments | Dedicated clusters optimized for performance |
+| Resource Allocation   | N/A                      | N/A                     | Limited resources for experimentation and testing | Dedicated resources for stable and scalable execution |
+
+This table outlines the differences between triggered execution, continuous execution, development, and production stages in Databricks across various aspects such as execution trigger, processing characteristics, environment, and resource allocation.
 
 ### Manage data quality with DLT
 Expectations are optional clauses you add to Delta Live Tables dataset declarations that apply data quality checks on each record passing through a query.
