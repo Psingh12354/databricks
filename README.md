@@ -79,3 +79,7 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - ```.trigger(once=True)``` is supposed to process only one patch of data.
 - ```.trigger(availableNow=True)``` setting is used for incremental batch processing in Structured Streaming it help in processing data immediately.
 - To have an up and running job with a 1-hour processing interval; ```.trigger(processingTime='60 minutes')```
+
+### Manage data quality with DLT
+Expectations are optional clauses you add to Delta Live Tables dataset declarations that apply data quality checks on each record passing through a query.
+<img width="691" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/52d5c201-34d7-460a-b591-f2bd5b82ebd6">
