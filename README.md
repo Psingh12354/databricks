@@ -36,19 +36,33 @@ Job clusters prioritize your specific job but come with higher resource costs.
 - spark.readStream is a method in Apache Spark used for reading streaming data. It returns a DataStreamReader that can be used to read data streams as a streaming DataFrame. This is particularly useful for incremental data processing (streaming) - when you read input data, Spark determines what new data were added since the last read operation and processes only them
 - To schedule a job to run once per day you need to use Quartz Cron. Cron syntax specifies a time in the format <seconds> <minutes> <hours> <day-of-month> <month> <day-of-week>. Numbers are used for the values and special characters can be used for multiple values.
 - A data engineer needs to create a table in Databricks using data from their organization’s existing SQLite database ```org.apache.spark.sql.jdbc```
+- Default location of storage ```dbfs:/user/hive/warehouse```
 - To create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records, you should use the UNION operator, as shown in option B. This operator combines the result sets of the two tables while automatically removing duplicate records.
 - The reason why the data files still exist while the metadata files were deleted is because the table was external. When a table is external in Spark SQL (or in other database systems), it means that the table metadata (such as schema information and table structure) is managed externally, and Spark SQL assumes that the data is managed and maintained outside of the system. Therefore, when you execute a DROP TABLE statement for an external table, it removes only the table metadata from the catalog, leaving the data files intact. On the other hand, for managed tables (option E), Spark SQL manages both the metadata and the data files. When you drop a managed table, it deletes both the metadata and the associated data files, resulting in a complete removal of the table.
 - A table in a database allows you to store structured data persistently. It provides a physical representation of data, and other users can query, modify, and analyze it. Unlike temporary views, tables are durable and can be accessed across sessions and users. By creating a table, the data engineer ensures that the data is stored and can be efficiently utilized by others.
+- ```spark.table()``` function returns the specified Spark SQL table as a PySpark DataFrame
+- MERGE INTO allows to merge a set of updates, insertions, and deletions based on a source table into a target Delta table. With MERGE INTO, you can avoid inserting the duplicate records when writing into Delta tables.
 - To query a table u can use ```Select * from file_format.`path.type` ```. In this we can pass whole path or just give the folder location and run all the files together, or just give ```path/*.type```
 - To make a copy of delta table we have two options : Deep Clone & Shadow Clone.
 - Deep Clone copies full data + metadata from source to target. ```Create table table_name deep clone source_table```
 - Shallow Clone create copy of table by just coping Delta connection logs. ```Create table table_name shallow clone source_table```
+- ```Data Explorer``` in Databricks SQL allows you to manage data object permissions. This includes granting privileges on tables and databases to users or groups of users.
 - View is the virtual table which doesn't have any existence. In databricks it's classiedmfied in 3 types.
 - ```Create view view_name as query``` it's a common view.
 - Temporary view work base on sparksession when it calls it started and when session closed view closed. ```Create temp view view_name as query```
 - Global temporary view is based on cluster. ```Create global temp view view_name as query```
-- In summary, Gold tables contain valuable, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.
+- In summary, Gold tables contain valuable whose output goes to dashboard like BI, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.[For More details](https://www.databricks.com/glossary/medallion-architecture)
 <img width="692" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/168f3c24-4555-4c99-98c9-498c5c0aec20">
+- Below query is in bronze layer becuase if u see it's reading data from some cloud and target table name is uncleaned order with this you can guess it's a silver layer.
+```
+(spark.readStream
+        .format("cloudFiles")
+        .option("cloudFiles.format", "json")
+        .load(ordersLocation)
+     .writeStream
+        .option("checkpointLocation", checkpointPath)
+        .table("uncleanedOrders")
+)```
 
 - Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
 - To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
@@ -78,6 +92,7 @@ Job clusters prioritize your specific job but come with higher resource costs.
 ### Trigger
 - ```.trigger(once=True)``` is supposed to process only one patch of data.
 - ```.trigger(availableNow=True)``` setting is used for incremental batch processing in Structured Streaming it help in processing data immediately.
+- To run any query in micro-batch use trigger.
 - To have an up and running job with a 1-hour processing interval; ```.trigger(processingTime='60 minutes')```
   
 | Aspect                | Triggered Execution      | Continuous Execution    | Development         | Production          |
@@ -92,3 +107,143 @@ This table outlines the differences between triggered execution, continuous exec
 ### Manage data quality with DLT
 Expectations are optional clauses you add to Delta Live Tables dataset declarations that apply data quality checks on each record passing through a query.
 <img width="691" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/52d5c201-34d7-460a-b591-f2bd5b82ebd6">
+
+### To read data from DLT
+- ```spark.readStream.table("table_name")```
+
+### Auto loader
+Auto Loader incrementally and efficiently processes new data files as they arrive in cloud storage without any additional setup.
+- Auto Loader provides a Structured Streaming source called cloudFiles. Given an input directory path on the cloud file storage, the cloudFiles source automatically processes new files as they arrive, with the option of also processing existing files in that directory. Auto Loader has support for both Python and SQL in Delta Live Tables.
+- To pass a comment we have follow below structure
+
+```
+CREATE TABLE payments
+COMMENT "This table contains sensitive information"
+AS SELECT * FROM bank_transactions
+```
+
+### Create table in DB
+```
+-- Creates a Delta table
+> CREATE TABLE student (id INT, name STRING, age INT);
+
+-- Use data from another table
+> CREATE TABLE student_copy AS SELECT * FROM student;
+
+-- Creates a CSV table from an external directory
+> CREATE TABLE student USING CSV LOCATION '/mnt/csv_files';
+
+-- Specify table comment and properties
+> CREATE TABLE student (id INT, name STRING, age INT)
+    COMMENT 'this is a comment'
+    TBLPROPERTIES ('foo'='bar');
+
+-- Specify table comment and properties with different clauses order
+> CREATE TABLE student (id INT, name STRING, age INT)
+    TBLPROPERTIES ('foo'='bar')
+    COMMENT 'this is a comment';
+
+-- Create partitioned table
+> CREATE TABLE student (id INT, name STRING, age INT)
+    PARTITIONED BY (age);
+
+-- Create a table with a generated column
+> CREATE TABLE rectangles(a INT, b INT,
+                          area INT GENERATED ALWAYS AS (a * b));
+```
+
+### UDF
+```
+CREATE FUNCTION convert_f_to_c(unit STRING, temp DOUBLE)
+RETURNS DOUBLE
+RETURN CASE
+  WHEN unit = "F" THEN (temp - 32) * (5/9)
+  ELSE temp
+END;
+
+SELECT convert_f_to_c(unit, temp) AS c_temp
+FROM tv_temp;
+```
+
+### Action b/w 2 tables
+- Use number1 and number2 tables to demonstrate set operators in this page.
+
+```
+> CREATE TEMPORARY VIEW number1(c) AS VALUES (3), (1), (2), (2), (3), (4);
+
+> CREATE TEMPORARY VIEW number2(c) AS VALUES (5), (1), (1), (2);
+
+> SELECT c FROM number1 EXCEPT SELECT c FROM number2;
+  3
+  4
+
+> SELECT c FROM number1 MINUS SELECT c FROM number2;
+  3
+  4
+
+> SELECT c FROM number1 EXCEPT ALL (SELECT c FROM number2);
+  3
+  3
+  4
+
+> SELECT c FROM number1 MINUS ALL (SELECT c FROM number2);
+  3
+  3
+  4
+
+> (SELECT c FROM number1) INTERSECT (SELECT c FROM number2);
+  1
+  2
+
+> (SELECT c FROM number1) INTERSECT DISTINCT (SELECT c FROM number2);
+  1
+  2
+
+> (SELECT c FROM number1) INTERSECT ALL (SELECT c FROM number2);
+  1
+  2
+  2
+
+> (SELECT c FROM number1) UNION (SELECT c FROM number2);
+  1
+  3
+  5
+  4
+  2
+
+> (SELECT c FROM number1) UNION DISTINCT (SELECT c FROM number2);
+  1
+  3
+  5
+  4
+  2
+
+> SELECT c FROM number1 UNION ALL (SELECT c FROM number2);
+  3
+  1
+  2
+  2
+  3
+  4
+  5
+  1
+  1
+  2
+
+```
+
+### Filter vs Transform
+```
+SELECT filter(array(1, 2, 3, 4), i -> i % 2 == 0);
+>>> 2,4
+SELECT transform(array(1, 2, 3, 4), i -> i % 2 == 0);
+>>> False,True,False,True
+SELECT transform(array(1, 2, 3, 4), i -> i*2);
+>>> 2,4,6,8
+```
+### Alert destination supported by Databricks
+- Email
+- Slack
+- Webhook
+- MS Teams
+- PagerDuty
