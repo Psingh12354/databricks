@@ -29,7 +29,35 @@ Job clusters prioritize your specific job but come with higher resource costs.
 
 - To get the location of database use this command```descibe database db_name;```
 - ```spark.Table``` to registered table through SparkSession.
+- The VACUUM command deletes the unused data files older than a specified data retention period.
+- Delta Lake builds upon standard data formats. Delta lake table gets stored on the storage in one or more data files in Parquet format, along with transaction logs in JSON format.
+- Databricks Repos supports git Pull operation. It is used to fetch and download content from a remote repository and immediately update the local repo to match that content.
+- According to the Databricks Lakehouse architecture, the storage account hosting the customer data is provisioned in the data plane in the Databricks customer's cloud account.
+- One advantage of Databricks Repos over the built-in Databricks Notebooks versioning is that Databricks Repos supports creating and managing branches for development work.
+- The DESCRIBE DATABASE or DESCRIBE SCHEMA returns the metadata of an existing database (schema). The metadata information includes the database’s name, comment, and location on the filesystem. If the optional EXTENDED option is specified, database properties are also returned.
+- ```dbfs:/user/hive/warehouse/db_hr.db``` in this we created a db_hr database under default location
+- PIVOT transforms the rows of a table by rotating unique values of a specified column list into separate columns. In other words, It converts a table from a long format to a wide format.
+- ```CREATE TABLE USING``` allows to specify an external data source type like CSV format, and with any additional options. This creates an external table pointing to files stored in an external location.
+- ```CREATE SCHEMA``` is an alias for ```CREATE DATABASE``` statement. While usage of SCHEMA and DATABASE is interchangeable, SCHEMA is preferred.
+- CREATE TABLE AS SELECT statements, or CTAS statements create and populate Delta tables using the output of a SELECT query. CTAS statements automatically infer schema information from query results and do not support manual schema declaration.
+- In Spark Structured Streaming, we use ```trigger(availableNow=True)``` to run the stream in batch mode where it processes all available data in multiple micro-batches. The trigger will stop on its own once it finishes processing the available data.
+- Auto Loader keeps track of discovered files using checkpointing in the checkpoint location. Checkpointing allows Auto loader to provide exactly-once ingestion guarantees.
+- By default, if you don’t provide any trigger interval, the data will be processed every half second. This is equivalent to ```trigger(processingTime=”500ms")```
+- In DLT pipelines, You can stream data from other tables in the same pipeline by using the ```STREAM()``` function. In this case, you must define a streaming live table using CREATE STREAMING LIVE TABLE syntax.
+Remember: to query another live table, prepend always the LIVE. keyword to the table name.
+```
+CREATE STREAMING LIVE TABLE table_name
+AS
+    SELECT *
+    FROM STREAM(LIVE.another_table)
+```
 - To successfully complete the task and indicate that the new table includes personally identifiable information (PII), the correct line of code to fill in the blank is: ```COMMENT “Contains PII”```
+### When to use copy into or Auto Loader
+- If you’re going to ingest files in the order of thousands, you can use COPY INTO. If you are expecting files in the order of millions or more over time, use Auto Loader.
+- If your data schema is going to evolve frequently, Auto Loader provides better primitives around schema inference and evolution.
+  
+- Databricks Jobs allow to orchestrate data processing tasks. This means the ability to run and manage multiple tasks as a directed acyclic graph (DAG) in a job.
+- You can repair failed multi-task jobs by running only the subset of unsuccessful tasks and any dependent tasks. Because successful tasks are not re-run, this feature reduces the time and resources required to recover from unsuccessful job runs.
 - To write data into a Delta table while avoiding the writing of duplicate records, you can use the ```MERGE``` command
 - To define UDF in sql use below like query ```CREATE FUNCTION blue() RETURNS STRING COMMENT 'Blue color code' LANGUAGE SQL RETURN '0000FF';```
 - The COPY INTO statement is generally used to copy data from files or a location into a table. If the data engineer runs this statement daily to copy the previous day’s sales into the "transactions" table and the number of records hasn't changed after today's execution, it's possible that the data from today's file might not have differed from the data already present in the table.
