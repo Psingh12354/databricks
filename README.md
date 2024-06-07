@@ -81,7 +81,9 @@ AS
 - Global temporary view is based on cluster. ```Create global temp view view_name as query```
 - In summary, Gold tables contain valuable whose output goes to dashboard like BI, refined data that is suitable for business reporting, while Silver tables provide a cleansed and conformed view of key business entities, bronze add schema to tables, and raw data is unprocessed data.[For More details](https://www.databricks.com/glossary/medallion-architecture)
 <img width="692" alt="image" src="https://github.com/Psingh12354/databricks/assets/55645997/168f3c24-4555-4c99-98c9-498c5c0aec20">
+
 - Below query is in bronze layer becuase if u see it's reading data from some cloud and target table name is uncleaned order with this you can guess it's a silver layer.
+
 ```
 (spark.readStream
         .format("cloudFiles")
