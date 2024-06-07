@@ -92,7 +92,8 @@ AS
      .writeStream
         .option("checkpointLocation", checkpointPath)
         .table("uncleanedOrders")
-)```
+)
+```
 
 - Steps required to connect through github [steps](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
 - To know why we use Parquet & what is Column orient, Row oriented and Hybrid Architecture [Link](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
