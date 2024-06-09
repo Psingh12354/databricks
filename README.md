@@ -202,6 +202,29 @@ SELECT c FROM number1 INTERSECT SELECT c FROM number2;
 SELECT c FROM number1 UNION SELECT c FROM number2;
 ```
 
-## Filter vs Transform
+## Array Manipulation Functions
+
+### Filter Function
 ```sql
-SELECT filter(array(1, 2, 3, 4), i -> i % 2 == 0);  -- Result
+SELECT filter(array(1, 2, 3, 4), i -> i % 2 == 0);
+```
+This SQL-like function filters an array to include only elements that satisfy a given condition. For example, the above query returns an array containing only the even numbers from the input array.
+
+### Transform Function
+```sql
+SELECT transform(array(1, 2, 3, 4), i -> i * 2);
+```
+This function transforms each element of an array according to a specified transformation rule. For instance, the above query doubles each element of the input array.
+
+---
+
+## Alert Destinations
+
+Supported alert destinations include:
+- Email
+- Slack
+- Webhook
+- MS Teams
+- PagerDuty
+
+---
