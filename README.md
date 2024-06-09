@@ -60,6 +60,13 @@
 - Auto Loader: Tracks discovered files using checkpointing for exactly-once ingestion guarantees.
 - Default processing interval: `trigger(processingTime="500ms")`.
 
+| Aspect                | Triggered Execution      | Continuous Execution    | Development         | Production          |
+|-----------------------|--------------------------|-------------------------|---------------------|---------------------|
+| Execution Trigger     | Event-driven             | Continuous data arrival | N/A                 | N/A                 |
+| Processing Characteristics | Batch or near-real-time | Real-time processing    | Iterative development & testing | Stable, optimized execution |
+| Environment           | N/A                      | N/A                     | Interactive notebooks or development environments | Dedicated clusters optimized for performance |
+| Resource Allocation   | N/A                      | N/A                     | Limited resources for experimentation and testing | Dedicated resources for stable and scalable execution |
+
 ## Delta Live Tables (DLT)
 - Enables creating streaming live tables using the `STREAM()` function.
 - Use `COMMENT "Contains PII"` to indicate that a new table includes personally identifiable information (PII).
