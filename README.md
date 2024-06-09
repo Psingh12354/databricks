@@ -1,4 +1,4 @@
----
+
 # Databricks Overview
 
 ## Cluster Types
@@ -227,4 +227,3 @@ Supported alert destinations include:
 - MS Teams
 - PagerDuty
 
----
